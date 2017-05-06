@@ -21,76 +21,76 @@
     <table id="15" parent="2" name="roles"/>
     <table id="16" parent="2" name="sheetlist"/>
     <table id="17" parent="2" name="user"/>
-    <column id="18" parent="14" name="CourseID">
+    <column id="18" parent="14" name="Name">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="19" parent="14" name="UserID">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="20" parent="14" name="CourseDescription">
+      <Position>4</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="21" parent="14" name="Status">
+      <Position>5</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="22" parent="14" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="19" parent="14" name="Name">
-      <Position>2</Position>
-      <DataType>varchar(50)|0</DataType>
-    </column>
-    <column id="20" parent="14" name="UserID">
-      <Position>3</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="21" parent="14" name="CourseDescription">
-      <Position>4</Position>
-      <DataType>varchar(50)|0</DataType>
-    </column>
-    <column id="22" parent="14" name="Status">
-      <Position>5</Position>
-      <DataType>varchar(50)|0</DataType>
-    </column>
     <index id="23" parent="14" name="FK_course_user">
       <ColNames>UserID</ColNames>
     </index>
     <key id="24" parent="14" name="PRIMARY">
-      <ColNames>CourseID</ColNames>
+      <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
     <foreign-key id="25" parent="14" name="FK_course_user">
       <ColNames>UserID</ColNames>
       <RefSchemaName>facultytest</RefSchemaName>
       <RefTableName>user</RefTableName>
-      <RefColNames>UserID</RefColNames>
+      <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="26" parent="15" name="RoleID">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
-    <column id="27" parent="15" name="Roles">
+    <column id="26" parent="15" name="Roles">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <key id="28" parent="15" name="PRIMARY">
-      <ColNames>RoleID</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="29" parent="16" name="SheetID">
+    <column id="27" parent="15" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="30" parent="16" name="UserID">
+    <key id="28" parent="15" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="29" parent="16" name="UserID">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="31" parent="16" name="CourseID">
+    <column id="30" parent="16" name="CourseID">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="32" parent="16" name="Score">
+    <column id="31" parent="16" name="Score">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="33" parent="16" name="ShortComment">
+    <column id="32" parent="16" name="ShortComment">
       <Position>5</Position>
       <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="33" parent="16" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
     </column>
     <index id="34" parent="16" name="FK_sheetlist_course">
       <ColNames>CourseID</ColNames>
@@ -99,69 +99,69 @@
       <ColNames>UserID</ColNames>
     </index>
     <key id="36" parent="16" name="PRIMARY">
-      <ColNames>SheetID</ColNames>
+      <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
     <foreign-key id="37" parent="16" name="FK_sheetlist_user">
       <ColNames>UserID</ColNames>
       <RefSchemaName>facultytest</RefSchemaName>
       <RefTableName>user</RefTableName>
-      <RefColNames>UserID</RefColNames>
+      <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="38" parent="16" name="FK_sheetlist_course">
       <ColNames>CourseID</ColNames>
       <RefSchemaName>facultytest</RefSchemaName>
       <RefTableName>course</RefTableName>
-      <RefColNames>CourseID</RefColNames>
+      <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="39" parent="17" name="UserID">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
-    <column id="40" parent="17" name="FirstName">
+    <column id="39" parent="17" name="FirstName">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="41" parent="17" name="LastName">
+    <column id="40" parent="17" name="LastName">
       <Position>3</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="42" parent="17" name="Login">
+    <column id="41" parent="17" name="Login">
       <Position>4</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="43" parent="17" name="Password">
+    <column id="42" parent="17" name="Password">
       <Position>5</Position>
       <DataType>varchar(50)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
-    <column id="44" parent="17" name="RoleID">
+    <column id="43" parent="17" name="RoleID">
       <Position>6</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
     </column>
+    <column id="44" parent="17" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
     <index id="45" parent="17" name="FK_user_roles">
       <ColNames>RoleID</ColNames>
     </index>
     <key id="46" parent="17" name="PRIMARY">
-      <ColNames>UserID</ColNames>
+      <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
     <foreign-key id="47" parent="17" name="FK_user_roles">
       <ColNames>RoleID</ColNames>
       <RefSchemaName>facultytest</RefSchemaName>
       <RefTableName>roles</RefTableName>
-      <RefColNames>RoleID</RefColNames>
+      <RefColNames>id</RefColNames>
     </foreign-key>
   </database-model>
 </dataSource>
