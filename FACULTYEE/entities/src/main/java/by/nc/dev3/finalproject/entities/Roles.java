@@ -1,5 +1,7 @@
 package by.nc.dev3.finalproject.entities;
 
+import by.nc.dev3.finalproject.enums.RolesType;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,18 +13,15 @@ import java.util.List;
 @Table(name="roles")
 public class Roles extends AbstractEntity  {
 
+    private RolesType rolesName;
 
-    private String roles;
-
-    @Column(nullable = false, name = ("Roles"))
-    public String getRoles() {
-        return roles;
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "enum('STUDENT', 'ADMIN')", name = ("RolesName"))
+    public RolesType getRolesName() {
+        return rolesName;
     }
 
-    public void setRoles(String roles) {
-        this.roles = roles;
+    public void setRolesName(RolesType rolesName) {
+        this.rolesName = rolesName;
     }
-
-
-
 }

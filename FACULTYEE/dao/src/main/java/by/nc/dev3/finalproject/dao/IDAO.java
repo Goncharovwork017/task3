@@ -1,6 +1,5 @@
 package by.nc.dev3.finalproject.dao;
 
-import by.nc.dev3.finalproject.exceptions.DAOUncheckedException;
 import by.nc.dev3.finalproject.entities.AbstractEntity;
 
 import java.io.Serializable;
@@ -13,7 +12,7 @@ public interface IDAO <T extends AbstractEntity> {
 
     List<T> getAll();
 
-    void save(T entity);
+    Serializable save(T entity);
 
     T getById(int id);
 

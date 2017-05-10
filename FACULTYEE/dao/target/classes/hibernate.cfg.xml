@@ -15,6 +15,7 @@
 
         <property name="show_sql">true</property>
 
+        <property name="hibernate.hbm2ddl.auto">validate</property>
 
         <mapping class="by.nc.dev3.finalproject.entities.User"/>
         <mapping class="by.nc.dev3.finalproject.entities.Course"/>

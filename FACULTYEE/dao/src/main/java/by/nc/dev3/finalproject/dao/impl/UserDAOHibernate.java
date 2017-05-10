@@ -2,11 +2,12 @@ package by.nc.dev3.finalproject.dao.impl;
 
 import by.nc.dev3.finalproject.abstracts.AbstractDAO;
 import by.nc.dev3.finalproject.dao.UserDAO;
-import by.nc.dev3.finalproject.exceptions.DAOUncheckedException;
+import by.nc.dev3.finalproject.exceptions.DAOUnException;
 import by.nc.dev3.finalproject.entities.User;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
-import javax.persistence.Query;
+import org.hibernate.Query;
 
 /**
  * Created by ivan on 02.05.2017.
@@ -19,28 +20,34 @@ public class UserDAOHibernate extends AbstractDAO<User> implements UserDAO {
     }
 
     @Override
-    public User getByLogin(String login) throws DAOUncheckedException {
+    public User getByLogin(String login) {
+        User user;
         try {
             Session session = hibernateUtil.getSession();
-            Query query = session.createQuery("from User user where user.login = :login");
+            Query query = session.createQuery("from User  where login = :login");
             query.setParameter("login", login);
-            return (User) query.getSingleResult();
+            user  = (User) query.getSingleResult();
         } catch (Exception e) {
-            throw new DAOUncheckedException("Unable to return login.");
+            throw new DAOUnException("Unable to return login.");
         }
+        return user;
     }
 
     @Override
-    public User isAuthorized(String login, String password) throws DAOUncheckedException {
+    public boolean isAuthorized(String login, String password) throws DAOUnException {
+        boolean isLogIn = false;
         try{
             Session session = hibernateUtil.getSession();
-            Query query = session.createQuery("from User user where  user.login = :login and user.password = :password");
+            Query query = session.createQuery("from User  where  login = :login and password = :password");
             query.setParameter("login",login);
             query.setParameter("password",password);
-            return (User) query.getSingleResult();
-        } catch (Exception e){
-            throw new DAOUncheckedException("Unable authorization");
+            if (query.uniqueResult() != null) {
+                isLogIn = true;
+            }
+        } catch (HibernateException e) {
+            throw new DAOUnException("Unable to check authorization. Error was thrown in DAO: ");
         }
+        return isLogIn;
     }
 
 

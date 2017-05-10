@@ -33,8 +33,6 @@ public class User  extends AbstractEntity {
                 '}';
     }
 
-
-
     @Column(nullable = false, name = ("FirstName"))
     public String getFirstName() {
         return firstName;

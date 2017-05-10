@@ -14,7 +14,6 @@ import java.util.List;
  */
 public class CourseDAOHibernate extends AbstractDAO<Course> implements CourseDAO {
 
-
     public CourseDAOHibernate(Class<Course> persistentClass) {
         super(persistentClass);
     }

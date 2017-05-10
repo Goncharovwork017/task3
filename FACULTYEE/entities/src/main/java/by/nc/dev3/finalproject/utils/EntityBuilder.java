@@ -2,6 +2,7 @@ package by.nc.dev3.finalproject.utils;
 
 import by.nc.dev3.finalproject.entities.Roles;
 import by.nc.dev3.finalproject.entities.User;
+import by.nc.dev3.finalproject.enums.RolesType;
 
 /**
  * Created by ivan on 03.05.2017.
@@ -16,13 +17,12 @@ public class EntityBuilder {
         user.setLastName(surname);
         user.setLogin(login);
         user.setPassword(pass);
-        user.setRoles(roles);
-        return user;
+        user.setRoles(roles);return user;
     }
 
-    public static Roles buildRoles(String name){
+    public static Roles buildRoles(RolesType name){
         Roles roles = new Roles();
-        roles.setRoles(name);
+        roles.setRolesName(name);
         return roles;
     }
 
