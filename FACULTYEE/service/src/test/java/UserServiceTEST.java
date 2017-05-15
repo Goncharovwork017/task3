@@ -1,11 +1,11 @@
-import by.nc.dev3.finalproject.dao.impl.UserDAOHibernate;
-import by.nc.dev3.finalproject.entities.User;
-import by.nc.dev3.finalproject.enums.RolesType;
-import by.nc.dev3.finalproject.utils.EntityBuilder;
-import by.nc.dev3.finalproject.utils.HibernateUtil;
+import dao.impl.UserDAOHibernate;
+import entities.User;
+import enums.RolesType;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.*;
+import utils.EntityBuilder;
+import utils.HibernateUtil;
 
 import java.io.Serializable;
 

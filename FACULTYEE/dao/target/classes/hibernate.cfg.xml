@@ -11,17 +11,17 @@
         <property name="connection.password">root</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.pool_size">10</property>
-        <property name="hibernate.connection.isolation">2</property>
+        <!--<property name="hibernate.connection.isolation">2</property>-->
 
         <property name="show_sql">true</property>
 
         <property name="hibernate.hbm2ddl.auto">validate</property>
 
-        <mapping class="by.nc.dev3.finalproject.entities.User"/>
-        <mapping class="by.nc.dev3.finalproject.entities.Course"/>
-        <mapping class="by.nc.dev3.finalproject.entities.SheetList"/>
-        <mapping class="by.nc.dev3.finalproject.entities.Roles"/>
-        <mapping class="by.nc.dev3.finalproject.entities.UserSheetList"/>
+        <mapping class="entities.User"/>
+        <mapping class="entities.Course"/>
+        <mapping class="entities.SheetList"/>
+        <mapping class="entities.Roles"/>
+        <mapping class="entities.UserSheetList"/>
 
 
     </session-factory>
