@@ -21,16 +21,16 @@ public class main {
 
 //        System.out.println(results);
 
-        UserDAOHibernate userDAOHibernate = new UserDAOHibernate(User.class);
-
-
-           userDAOHibernate.save(EntityBuilder.buildUser("bahbkOasd","11122","Ivan","Goncharov", EntityBuilder.buildRoles(RolesType.ADMIN)));
-        userDAOHibernate.save(EntityBuilder.buildUser("oleg","olrg","Oleg","Zheleznov", EntityBuilder.buildRoles(RolesType.ADMIN)));
-
-            //  userDAOHibernate.delete(4);
-        List<User> users = userDAOHibernate.getAll();
-
-        System.out.println(users);
+//        UserDAOHibernate userDAOHibernate = new UserDAOHibernate(User.class);
+//
+//
+//           userDAOHibernate.save(EntityBuilder.buildUser("bahbkOasd","11122","Ivan","Goncharov", EntityBuilder.buildRoles(RolesType.ADMIN)));
+//        userDAOHibernate.save(EntityBuilder.buildUser("oleg","olrg","Oleg","Zheleznov", EntityBuilder.buildRoles(RolesType.ADMIN)));
+//
+//            //  userDAOHibernate.delete(4);
+//        List<User> users = userDAOHibernate.getAll();
+//
+//        System.out.println(users);
 
        // System.out.println(userDAOHibernate.getById(1));
        // System.out.println(userDAOHibernate.getByLogin("qwe"));

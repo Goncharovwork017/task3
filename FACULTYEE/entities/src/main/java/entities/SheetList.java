@@ -1,4 +1,4 @@
-package by.nc.dev3.finalproject.entities;
+package entities;
 
 import javax.persistence.*;
 

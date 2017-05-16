@@ -1,9 +1,6 @@
-package by.nc.dev3.finalproject.entities;
-
-import org.hibernate.annotations.GenericGenerator;
+package entities;
 
 import javax.persistence.*;
-import java.util.List;
 
 
 /**

@@ -1,9 +1,10 @@
-package by.nc.dev3.finalproject.entities;
+package entities;
 
-import by.nc.dev3.finalproject.enums.RolesType;
+
+
+import enums.RolesType;
 
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="roles")
-public class Roles extends AbstractEntity  {
+public class Roles extends AbstractEntity {
 
     private RolesType rolesName;
 

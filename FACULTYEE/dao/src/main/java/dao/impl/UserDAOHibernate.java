@@ -11,26 +11,36 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 
 /**
  * Created by ivan on 02.05.2017.
  */
 
+
+@Repository
 public class UserDAOHibernate extends AbstractDAO<User> implements IUserDAO {
 
     private static final Logger logger = Logger.getLogger(UserDAOHibernate.class);
 
 
-    public UserDAOHibernate(Class<User> persistentClass) {
-        super(persistentClass);
+ //   public UserDAOHibernate(Class<User> persistentClass) {
+        //super(persistentClass);
+  //  }
+
+    @Autowired
+    private UserDAOHibernate(SessionFactory sessionFactory){
+        super(User.class, sessionFactory);
     }
 
     @Override
     public User getByLogin(String login) {
         User user;
         try {
-            Session session = hibernateUtil.getSession();
+            Session session = getCurrentSession();
             Query query = session.createQuery(Queries.GET_BY_LOGIN);
             query.setParameter("login", login);
             user  = (User) query.uniqueResult();
@@ -49,7 +59,7 @@ public class UserDAOHibernate extends AbstractDAO<User> implements IUserDAO {
     public boolean isAuthorized(String login, String password) throws DAOUnException {
         boolean isLogIn = false;
         try{
-            Session session = hibernateUtil.getSession();
+            Session session = getCurrentSession();
             Query query = session.createQuery(Queries.CHECK_AUTHORIZATION);
             query.setParameter("login",login);
             query.setParameter("password",password);
