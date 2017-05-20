@@ -12,14 +12,11 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by ivan on 02.05.2017.
  */
-
-
 @Repository
 public class SheetListDAOHibernate extends AbstractDAO<SheetList> implements ISheetListDAO {
 
-
     @Autowired
-    private SheetListDAOHibernate(SessionFactory sessionFactory){
-        super(SheetList.class, sessionFactory);
+    public SheetListDAOHibernate(SessionFactory sessionFactory) {
+        super(SheetList.class,sessionFactory);
     }
 }

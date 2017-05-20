@@ -1,7 +1,7 @@
 package service.impl;
 
 import abstracts.AbstractService;
-import dao.IRolesDAO;
+import dao.*;
 import dao.impl.RolesDAOHibernate;
 import entities.Roles;
 import exceptions.DAOUnException;
@@ -9,38 +9,51 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.service.spi.ServiceException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import service.IRolesService;
 
 import java.io.Serializable;
 import java.util.List;
 
+import static constants.ServiceConstants.*;
+
 /**
  * Created by ivan on 14.05.2017.
  */
+@Service
+@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = DAOUnException.class)
 public class RolesServiceImpl  extends AbstractService<Roles> implements IRolesService {
 
-    private static Logger logger = Logger.getLogger(UserServiceImpl.class);
-    private IRolesDAO rolesDAO = new RolesDAOHibernate(Roles.class);
+    //TODO - ну ты и корч
+    private static Logger logger = Logger.getLogger(RolesServiceImpl.class);
+
+
+    @Autowired
+    private IRolesDAO rolesDAO;
+
+
+    @Autowired
+    protected RolesServiceImpl(IRolesDAO rolesDAO) {
+        super(rolesDAO);
+        this.rolesDAO = rolesDAO;
+    }
+
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Roles> getAll() {
 
         List<Roles> roles;
 
-        Session session =  hibernateUtil.getSession();
-        Transaction transaction = null;
         try {
-            transaction = session.beginTransaction();
             roles = rolesDAO.getAll();
-
-            transaction.commit();
-            System.out.println(TRANSACTION_SUCCEEDED);
-            logger.info(TRANSACTION_SUCCEEDED);
-            logger.info(roles);
         }
         catch (DAOUnException e) {
             logger.error(TRANSACTION_FAILED, e);
-            transaction.rollback();
+
             throw new ServiceException(TRANSACTION_FAILED + e);
         }
 
@@ -50,45 +63,33 @@ public class RolesServiceImpl  extends AbstractService<Roles> implements IRolesS
 
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public Serializable save(Roles entity) {
-
-
         Serializable id;
-        Session session = hibernateUtil.getSession();
-        Transaction transaction = null;
         try {
-            transaction = session.beginTransaction();
-            id = rolesDAO.save(entity);
-            transaction.commit();
-            System.out.println(TRANSACTION_SUCCEEDED);
-            logger.info(TRANSACTION_SUCCEEDED);
-            logger.info(entity);
 
+            id = rolesDAO.save(entity);
         }
         catch (DAOUnException e) {
             logger.error(TRANSACTION_FAILED, e);
-            transaction.rollback();
             throw new ServiceException(TRANSACTION_FAILED + e);
         }
         return id;
     }
 
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public Roles getById(int id) {
         Roles roles;
-        Session session = hibernateUtil.getSession();
-        Transaction transaction = null;
+
         try {
-            transaction = session.beginTransaction();
             roles = rolesDAO.getById(id);
-            transaction.commit();
             System.out.println(TRANSACTION_SUCCEEDED);
             logger.info(TRANSACTION_SUCCEEDED);
             logger.info(roles);
         }
         catch (DAOUnException e) {
             logger.error(TRANSACTION_FAILED, e);
-            transaction.rollback();
             throw new ServiceException(TRANSACTION_FAILED + e);
         }
 
@@ -98,39 +99,29 @@ public class RolesServiceImpl  extends AbstractService<Roles> implements IRolesS
     }
 
     @Override
-    public void update(Roles entity) {
-        Session session = hibernateUtil.getSession();
-        Transaction transaction = null;
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public Roles update(Roles entity) {
         try {
-            transaction = session.beginTransaction();
             rolesDAO.update(entity);
-            transaction.commit();
-            System.out.println(TRANSACTION_SUCCEEDED);
-            logger.info(TRANSACTION_SUCCEEDED);
-            logger.info(entity);
+            return entity;
         }
         catch (DAOUnException e) {
             logger.error(TRANSACTION_FAILED, e);
-            transaction.rollback();
             throw new ServiceException(TRANSACTION_FAILED + e);
         }
     }
 
     @Override
-    public void delete(int id) {
-        Session session = hibernateUtil.getSession();
-        Transaction transaction = null;
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public Roles delete(int id) {
         try {
-            transaction = session.beginTransaction();
+            Roles roles = getById(id);
             rolesDAO.delete(id);
-            transaction.commit();
-            System.out.println(TRANSACTION_SUCCEEDED);
-            logger.info(TRANSACTION_SUCCEEDED);
-            logger.info(id);
+            return roles;
+
         }
         catch (DAOUnException e) {
             logger.error(TRANSACTION_FAILED, e);
-            transaction.rollback();
             throw new ServiceException(TRANSACTION_FAILED + e);
         }
 

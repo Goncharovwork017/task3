@@ -24,7 +24,7 @@ public class UserDAOTEST {
 
     @BeforeClass
     public static void initTest(){
-        userDAOHibernate = new UserDAOHibernate(User.class);
+     //   userDAOHibernate = new UserDAOHibernate(User.class);
         util = HibernateUtil.getInstance();
         session = util.getSession();
     }

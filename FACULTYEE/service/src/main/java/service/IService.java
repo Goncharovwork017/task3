@@ -12,6 +12,6 @@ public interface IService<T extends AbstractEntity> {
     List<T> getAll() ;
     Serializable save(T entity);
     T getById(int id);
-    void update(T entity);
-    void delete(int id);
+    T update(T entity);
+    T delete(int id);
 }

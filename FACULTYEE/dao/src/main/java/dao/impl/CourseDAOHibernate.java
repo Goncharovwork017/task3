@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 public class CourseDAOHibernate extends AbstractDAO<Course> implements ICourseDAO {
 
     @Autowired
-    private CourseDAOHibernate(SessionFactory sessionFactory){
-        super(Course.class, sessionFactory);
+    public CourseDAOHibernate(SessionFactory sessionFactory) {
+        super(Course.class,sessionFactory);
     }
 }

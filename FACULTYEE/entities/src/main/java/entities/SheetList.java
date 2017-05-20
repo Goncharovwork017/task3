@@ -41,7 +41,7 @@ public class SheetList extends AbstractEntity {
                 '}';
     }
 
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "UserID")
     public User getUser() {
         return user;
@@ -51,7 +51,7 @@ public class SheetList extends AbstractEntity {
         this.user = user;
     }
 
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "CourseID")
     public Course getCourse() {
         return course;

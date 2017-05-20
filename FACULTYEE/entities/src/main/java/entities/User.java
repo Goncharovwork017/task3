@@ -1,5 +1,7 @@
 package entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 
@@ -67,8 +69,9 @@ public class User  extends AbstractEntity {
     }
 
 
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "RoleID")
+   // @JsonIgnore
     public Roles getRoles() {
         return roles;
     }

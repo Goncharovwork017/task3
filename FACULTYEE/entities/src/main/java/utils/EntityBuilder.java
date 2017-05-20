@@ -1,9 +1,7 @@
 package utils;
 
 
-import entities.Course;
 import entities.Roles;
-import entities.SheetList;
 import entities.User;
 import enums.RolesType;
 
@@ -20,28 +18,7 @@ public class EntityBuilder {
         user.setLastName(surname);
         user.setLogin(login);
         user.setPassword(pass);
-        user.setRoles(roles)
-        ;return user;
-    }
-
-
-    public static Course buildCourse(String name,User user, String courseDesc, String status){
-        Course course = new Course();
-        course.setName(name);
-        course.setUser(user);
-        course.setCourseDescription(courseDesc);
-        course.setStatus(status);
-        return course;
-    }
-
-
-    public static SheetList buildSheetList(User user, Course course, Integer score, String shortComm){
-        SheetList sheetList = new SheetList();
-        sheetList.setUser(user);
-        sheetList.setCourse(course);
-        sheetList.setScore(score);
-        sheetList.setShortComment(shortComm);
-        return sheetList;
+        user.setRoles(roles);return user;
     }
 
     public static Roles buildRoles(RolesType name){

@@ -10,7 +10,8 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Component;
+import utils.HibernateUtil;
 
 import java.io.Serializable;
 import java.util.List;
@@ -21,19 +22,28 @@ import java.util.List;
  * Created by ivan on 03.05.2017.
  */
 
+@SuppressWarnings("unchecked")
 public abstract class AbstractDAO <T extends AbstractEntity> implements IDAO<T> {
 
 
     private static Logger logger = Logger.getLogger(AbstractDAO.class);
 
 
-    private Class<T> persistentClass;
     @Autowired
     private SessionFactory sessionFactory;
+    private Class<T> persistentClass;
+
+    public AbstractDAO(Class<T> persistentClass,SessionFactory sessionFactory) {
+        this.persistentClass = persistentClass;
+        this.sessionFactory = sessionFactory;
+    }
+
+
 
     protected Session getCurrentSession(){
         return sessionFactory.getCurrentSession();
     }
+
     @Override
     public List<T> getAll() {
         List<T> results;
@@ -113,8 +123,5 @@ public abstract class AbstractDAO <T extends AbstractEntity> implements IDAO<T> 
 
 
 
-    public AbstractDAO(Class<T> persistentClass, SessionFactory sessionFactory) {
-        this.persistentClass = persistentClass;
-        this.sessionFactory = sessionFactory;
-    }
+
 }

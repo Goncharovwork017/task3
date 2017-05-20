@@ -2,7 +2,9 @@ package entities;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
 /**
@@ -10,7 +12,6 @@ import java.io.Serializable;
  */
 
 @MappedSuperclass
-@Access(AccessType.PROPERTY)
 public abstract class AbstractEntity implements Serializable {
 
     protected int id;
