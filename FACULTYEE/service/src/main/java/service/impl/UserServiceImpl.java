@@ -5,6 +5,7 @@ import dao.IDAO;
 import dao.IRolesDAO;
 import dao.IUserDAO;
 import dao.impl.UserDAOHibernate;
+import entities.Roles;
 import entities.User;
 import exceptions.DAOUnException;
 import org.apache.log4j.Logger;
@@ -61,6 +62,27 @@ public class UserServiceImpl extends AbstractService<User> implements IUserServi
         return user;
     }
 
+
+    @Override
+    @Transactional
+    public boolean hasSameLogin(String login) {
+         boolean hasSameLogin = false;
+         try{
+             hasSameLogin = userDAO.hasSameLogin(login);
+         }
+         catch (DAOUnException e){
+             logger.error(TRANSACTION_FAILED, e);
+             throw new ServiceException(TRANSACTION_FAILED + e);
+         }
+        return hasSameLogin;
+    }
+
+    @Override
+    public Roles getRoles(String userRoles) {
+        return userDAO.getRoles(userRoles);
+    }
+
+
     @Override
     @Transactional
     public boolean isAuthorized(String login, String password) {
@@ -95,6 +117,8 @@ public class UserServiceImpl extends AbstractService<User> implements IUserServi
     public boolean isUserExist(User user) {
         return findByLogin(user.getLogin())!=null;
     }
+
+
 
 
     @Override

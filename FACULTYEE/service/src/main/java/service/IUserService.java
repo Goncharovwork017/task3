@@ -1,5 +1,6 @@
 package service;
 
+import entities.Roles;
 import entities.User;
 
 /**
@@ -11,6 +12,8 @@ public interface IUserService extends IService<User> {
     boolean isAuthorized(String login, String password);
     User findByLogin(String login);
     boolean isUserExist(User user);
+    boolean hasSameLogin(String login);
+    Roles getRoles(String userRoles);
 
 
 }

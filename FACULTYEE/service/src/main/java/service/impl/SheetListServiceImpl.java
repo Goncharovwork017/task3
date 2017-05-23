@@ -43,10 +43,10 @@ public class SheetListServiceImpl extends AbstractService<SheetList> implements 
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<SheetList> getAll() {
 
-        List<SheetList> sheetLists;
+        List<SheetList> sheetList;
 
         try {
-            sheetLists = sheetListDAO.getAll();
+            sheetList = sheetListDAO.getAll();
 
         } catch (DAOUnException e) {
             logger.error(TRANSACTION_FAILED, e);
@@ -54,7 +54,7 @@ public class SheetListServiceImpl extends AbstractService<SheetList> implements 
             throw new ServiceException(TRANSACTION_FAILED + e);
         }
 
-        return sheetLists;
+        return sheetList;
     }
 
     @Override
@@ -112,6 +112,21 @@ public class SheetListServiceImpl extends AbstractService<SheetList> implements 
             throw new ServiceException(TRANSACTION_FAILED + e);
         }
 
+    }
+
+    @Override
+    public List<SheetList> findStudentWithEndedCourse(int courseId) {
+        List<SheetList> sheetList;
+        try{
+            sheetList = sheetListDAO.findStudentWithEndedCourse(courseId);
+
+        } catch (DAOUnException e) {
+            logger.error(TRANSACTION_FAILED, e);
+
+            throw new ServiceException(TRANSACTION_FAILED + e);
+        }
+
+        return sheetList;
     }
 }
 

@@ -4,6 +4,7 @@ package dao.impl;
 import abstracts.AbstractDAO;
 import constants.Queries;
 import dao.IUserDAO;
+import entities.Roles;
 import exceptions.DAOUnException;
 import entities.User;
 import org.apache.log4j.Logger;
@@ -64,6 +65,16 @@ public class UserDAOHibernate extends AbstractDAO<User> implements IUserDAO {
             throw new DAOUnException("Unable to check authorization. Error was thrown in DAO: " + e);
         }
         return isLogIn;
+    }
+
+    @Override
+    public boolean hasSameLogin(String login) {
+        return getCurrentSession().createQuery(Queries.REG).setParameter("login", login).list().size()>0;
+    }
+
+    @Override
+    public Roles getRoles(String userRoles) {
+        return (Roles) getCurrentSession().createQuery(Queries.ROLES).setParameter("roles",userRoles).uniqueResult();
     }
 
 

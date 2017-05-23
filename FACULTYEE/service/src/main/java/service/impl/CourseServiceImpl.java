@@ -39,26 +39,7 @@ public class CourseServiceImpl  extends AbstractService<Course> implements ICour
     }
 
 
-    @Override
-    @Transactional
-    public List<Course> getAll() {
-        List<Course> courses;
 
-        try {
-
-            courses = courseDAO.getAll();
-
-
-            logger.info(TRANSACTION_SUCCEEDED);
-            logger.info(courses);
-        }
-        catch (DAOUnException e) {
-
-            logger.error(TRANSACTION_FAILED,e);
-            throw new ServiceException(TRANSACTION_FAILED + e);
-        }
-        return courses;
-    }
 
     @Override
     @Transactional
@@ -108,6 +89,7 @@ public class CourseServiceImpl  extends AbstractService<Course> implements ICour
         try {
             courseDAO.update(entity);
             return entity;
+
         }
         catch (DAOUnException e) {
 
@@ -131,5 +113,82 @@ public class CourseServiceImpl  extends AbstractService<Course> implements ICour
             logger.error(TRANSACTION_FAILED,e);
             throw new ServiceException(TRANSACTION_FAILED + e);
         }
+    }
+
+    @Override
+    @Transactional
+    public List<Course> getAll() {
+        List<Course> courses;
+
+        try {
+
+            courses = courseDAO.getAll();
+
+
+            logger.info(TRANSACTION_SUCCEEDED);
+            logger.info(courses);
+        }
+        catch (DAOUnException e) {
+
+            logger.error(TRANSACTION_FAILED,e);
+            throw new ServiceException(TRANSACTION_FAILED + e);
+        }
+        return courses;
+    }
+
+
+
+
+
+
+    @Override
+    @Transactional
+    public List<Course> findAvailableCourse(String login) {
+        List<Course> courses;
+        try{
+            courses = courseDAO.findAvailableCourse(login);
+            logger.info(TRANSACTION_SUCCEEDED);
+            logger.info(courses);
+        }
+        catch (DAOUnException e) {
+
+            logger.error(TRANSACTION_FAILED,e);
+            throw new ServiceException(TRANSACTION_FAILED + e);
+        }
+        return courses;
+    }
+
+    @Override
+    @Transactional
+    public List<Course> findCurrentCoursesForStudents(String login) {
+        List<Course> courses;
+        try{
+            courses = courseDAO.findCurrentCoursesForStudents(login);
+            logger.info(TRANSACTION_SUCCEEDED);
+            logger.info(courses);
+        }
+        catch (DAOUnException e) {
+
+            logger.error(TRANSACTION_FAILED,e);
+            throw new ServiceException(TRANSACTION_FAILED + e);
+        }
+        return courses;
+    }
+
+    @Override
+    @Transactional
+    public List<Course> findCourseWithTeacher(int id) {
+        List<Course> courses;
+        try{
+            courses = courseDAO.findCourseWithTeacher(id);
+            logger.info(TRANSACTION_SUCCEEDED);
+            logger.info(courses);
+        }
+        catch (DAOUnException e) {
+
+            logger.error(TRANSACTION_FAILED,e);
+            throw new ServiceException(TRANSACTION_FAILED + e);
+        }
+        return courses;
     }
 }
