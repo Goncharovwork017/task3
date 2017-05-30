@@ -9,7 +9,6 @@ import java.util.List;
  */
 public interface ISheetListService extends IService<SheetList> {
 
-
-    List<SheetList> findStudentWithEndedCourse(int courseId);
+    List<SheetList> findStudentWithEndedCourse(int sheetId);
 
 }

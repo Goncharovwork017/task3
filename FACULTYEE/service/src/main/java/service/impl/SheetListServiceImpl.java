@@ -24,7 +24,7 @@ import static constants.ServiceConstants.*;
  * Created by ivan on 14.05.2017.
  */
 @Service
-@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = DAOUnException.class)
+@Transactional
 public class SheetListServiceImpl extends AbstractService<SheetList> implements ISheetListService {
     private static Logger logger = Logger.getLogger(SheetListServiceImpl.class);
 
@@ -39,80 +39,7 @@ public class SheetListServiceImpl extends AbstractService<SheetList> implements 
         this.sheetListDAO = sheetListDAO;
     }
 
-    @Override
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public List<SheetList> getAll() {
 
-        List<SheetList> sheetList;
-
-        try {
-            sheetList = sheetListDAO.getAll();
-
-        } catch (DAOUnException e) {
-            logger.error(TRANSACTION_FAILED, e);
-
-            throw new ServiceException(TRANSACTION_FAILED + e);
-        }
-
-        return sheetList;
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public Serializable save(SheetList entity) {
-
-        Serializable id;
-
-        try {
-            id = sheetListDAO.save(entity);
-        } catch (DAOUnException e) {
-            logger.error(TRANSACTION_FAILED, e);
-            throw new ServiceException(TRANSACTION_FAILED + e);
-        }
-        return id;
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public SheetList getById(int id) {
-        SheetList sheetList;
-
-        try {
-
-            sheetList = sheetListDAO.getById(id);
-
-        } catch (DAOUnException e) {
-            logger.error(TRANSACTION_FAILED, e);
-            throw new ServiceException(TRANSACTION_FAILED + e);
-        }
-        return sheetList;
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public SheetList update(SheetList entity) {
-        try {
-            sheetListDAO.update(entity);
-            return entity;
-        } catch (DAOUnException e) {
-            logger.error(TRANSACTION_FAILED, e);
-            throw new ServiceException(TRANSACTION_FAILED + e);
-        }
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public SheetList delete(int id) {
-        try {
-            SheetList list = getById(id);
-            sheetListDAO.delete(id);
-            return list;
-        } catch (DAOUnException e) {
-            logger.error(TRANSACTION_FAILED, e);
-            throw new ServiceException(TRANSACTION_FAILED + e);
-        }
-
-    }
 
     @Override
     public List<SheetList> findStudentWithEndedCourse(int courseId) {
@@ -128,5 +55,6 @@ public class SheetListServiceImpl extends AbstractService<SheetList> implements 
 
         return sheetList;
     }
+
 }
 

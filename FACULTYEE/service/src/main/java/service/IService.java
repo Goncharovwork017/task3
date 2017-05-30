@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface IService<T extends AbstractEntity> {
     List<T> getAll() ;
-    Serializable save(T entity);
+    int save(T entity);
     T getById(int id);
     T update(T entity);
     T delete(int id);

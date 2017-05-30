@@ -17,6 +17,7 @@ import service.IRolesService;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import static constants.ServiceConstants.*;
 
@@ -24,10 +25,9 @@ import static constants.ServiceConstants.*;
  * Created by ivan on 14.05.2017.
  */
 @Service
-@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = DAOUnException.class)
+@Transactional
 public class RolesServiceImpl  extends AbstractService<Roles> implements IRolesService {
 
-    //TODO - ну ты и корч
     private static Logger logger = Logger.getLogger(RolesServiceImpl.class);
 
 
@@ -41,89 +41,19 @@ public class RolesServiceImpl  extends AbstractService<Roles> implements IRolesS
         this.rolesDAO = rolesDAO;
     }
 
-
     @Override
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public List<Roles> getAll() {
-
-        List<Roles> roles;
-
-        try {
-            roles = rolesDAO.getAll();
-        }
-        catch (DAOUnException e) {
-            logger.error(TRANSACTION_FAILED, e);
-
-            throw new ServiceException(TRANSACTION_FAILED + e);
-        }
-
-        return roles;
-    }
-
-
-
-    @Override
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public Serializable save(Roles entity) {
-        Serializable id;
-        try {
-
-            id = rolesDAO.save(entity);
-        }
-        catch (DAOUnException e) {
-            logger.error(TRANSACTION_FAILED, e);
-            throw new ServiceException(TRANSACTION_FAILED + e);
-        }
-        return id;
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public Roles getById(int id) {
-        Roles roles;
-
-        try {
-            roles = rolesDAO.getById(id);
-            System.out.println(TRANSACTION_SUCCEEDED);
+    public Set<Roles> getRolesById(int id) {
+        Set<Roles> roles;
+        try{
+            roles = rolesDAO.getRolesById(id);
             logger.info(TRANSACTION_SUCCEEDED);
             logger.info(roles);
         }
         catch (DAOUnException e) {
-            logger.error(TRANSACTION_FAILED, e);
+
+            logger.error(TRANSACTION_FAILED,e);
             throw new ServiceException(TRANSACTION_FAILED + e);
         }
-
-
         return roles;
-
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public Roles update(Roles entity) {
-        try {
-            rolesDAO.update(entity);
-            return entity;
-        }
-        catch (DAOUnException e) {
-            logger.error(TRANSACTION_FAILED, e);
-            throw new ServiceException(TRANSACTION_FAILED + e);
-        }
-    }
-
-    @Override
-    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-    public Roles delete(int id) {
-        try {
-            Roles roles = getById(id);
-            rolesDAO.delete(id);
-            return roles;
-
-        }
-        catch (DAOUnException e) {
-            logger.error(TRANSACTION_FAILED, e);
-            throw new ServiceException(TRANSACTION_FAILED + e);
-        }
-
     }
 }

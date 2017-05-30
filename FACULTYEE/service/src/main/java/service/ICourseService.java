@@ -11,6 +11,6 @@ public interface ICourseService extends IService<Course> {
 
     List<Course> findAvailableCourse(String login);
     List<Course> findCurrentCoursesForStudents(String login);
-    List<Course> findCourseWithTeacher(int id);
+    List<Course> findCourseWithTeacher(Integer id);
 
 }
