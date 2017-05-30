@@ -41,8 +41,8 @@ public class CourseController {
         return ResponseEntity.ok(courseService.delete(courseId));
     }
 
-    @RequestMapping(value = "/{courseId}", method = RequestMethod.PUT)
-    public ResponseEntity update(@PathVariable Course course) {
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    public ResponseEntity update(@RequestBody Course course) {
         return ResponseEntity.ok(courseService.update(course));
     }
 

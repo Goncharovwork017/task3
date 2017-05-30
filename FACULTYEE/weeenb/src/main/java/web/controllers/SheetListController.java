@@ -41,8 +41,8 @@ public class SheetListController {
         return ResponseEntity.ok(sheetListService.delete(sheetId));
     }
 
-    @RequestMapping(value = "/{sheetId}", method = RequestMethod.PUT)
-    public ResponseEntity update(@PathVariable SheetList sheetList) {
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    public ResponseEntity update(@RequestBody SheetList sheetList) {
         return ResponseEntity.ok(sheetListService.update(sheetList));
     }
 
