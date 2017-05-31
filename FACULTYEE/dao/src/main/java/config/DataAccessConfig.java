@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
@@ -18,8 +20,14 @@ import java.util.Properties;
 /**
  * Created by ivan on 19.05.2017.
  */
+
+
 @Configuration
+@PropertySource("classpath:properties.xml")
 public class DataAccessConfig {
+
+    @Autowired
+    private Environment properties;
 
     @Bean
     public SessionFactory sessionFactory() {
@@ -28,6 +36,7 @@ public class DataAccessConfig {
         sessionFactory.setConfigLocation(new ClassPathResource("hibernate.cfg.xml"));
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("entities");
+        sessionFactory.setHibernateProperties(hibernateProperties());
         try {
             sessionFactory.afterPropertiesSet(); // создание фактори
         } catch (IOException e) {
@@ -40,13 +49,27 @@ public class DataAccessConfig {
     DataSource dataSource() {
         HikariConfig dataSourceConfig = new HikariConfig();
 
-        dataSourceConfig.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSourceConfig.setJdbcUrl("jdbc:mysql://localhost:3306/facultyTEST");
-        dataSourceConfig.setUsername("root");
-        dataSourceConfig.setPassword("root");
+        dataSourceConfig.setDriverClassName(properties.getProperty("db.driver"));
+        dataSourceConfig.setJdbcUrl(properties.getProperty("db.url"));
+        dataSourceConfig.setUsername(properties.getProperty("db.username"));
+        dataSourceConfig.setPassword(properties.getProperty("db.pass"));
 
         return new HikariDataSource(dataSourceConfig);
     }
+
+    Properties hibernateProperties() {
+        return new Properties() {
+            {
+                setProperty("hibernate.hbm2ddl.auto",
+                        properties.getProperty("hibernate.hbm2ddl.auto"));
+                setProperty("hibernate.dialect",
+                        properties.getProperty("hibernate.dialect"));
+                setProperty("hibernate.show_sql",
+                        properties.getProperty("hibernate.show_sql"));
+            }
+        };
+    }
+
 
 
     @Bean
